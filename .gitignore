@@ -4,9 +4,11 @@
 *.log
 .idea
 .settings
+.classpath
 grails-willcrisis-*.zip
 grails-willcrisis-*.zip.sha1
 plugin.xml
 target
 target-eclipse
 web-app
+out

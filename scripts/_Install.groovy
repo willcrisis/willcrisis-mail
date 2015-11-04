@@ -1,10 +1,32 @@
-//
-// This script is executed by Grails after plugin was installed to project.
-// This script is a Gant script so you can use all special variables provided
-// by Gant (such as 'baseDir' which points on project base dir). You can
-// use 'ant' to access a global instance of AntBuilder
-//
-// For example you can create directory under project tree:
-//
-//    ant.mkdir(dir:"${basedir}/grails-app/jobs")
-//
+appDir = "$basedir/grails-app"
+escreverConfiguracoes()
+
+private void escreverConfiguracoes() {
+    File config = new File(appDir, 'conf/Config.groovy')
+    if (config.exists()) {
+        println 'Writing mail configurations to Config.groovy...'
+        config.append('''
+grails {
+    mail {
+        host = "smtp.host.org"
+        port = 465
+        username = "user@host.org"
+        password = "pass"
+        props = ["mail.smtp.auth":"true",
+                 "mail.smtp.socketFactory.port":"465",
+                 "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+                 "mail.smtp.socketFactory.fallback":"false"]
+    }
+}
+grails.from.register = "You <you@host.org>"
+grails.from.general = "Someone <someone@host.org>"
+environments {
+    development {
+        grails.mail.disabled=true
+    }
+}
+''')
+        println 'Plugin installed. Please check your Config.groovy file and update it with your e-mail configurations. ' +
+                'If you aren\'t using Willcrisis Security Plugin, you can delete grails.from.register property.'
+    }
+}

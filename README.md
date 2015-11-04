@@ -1,29 +1,42 @@
-# README #
+[![Build Status](https://travis-ci.org/willcrisis/willcrisis-mail.svg)](https://travis-ci.org/willcrisis/willcrisis-mail)
 
-This README would normally document whatever steps are necessary to get your application up and running.
+# Willcrisis Mail Plugin #
 
-### What is this repository for? ###
+This plugin writes default mail configuration to `Config.groovy` file.  
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+### Installing ###
 
-### How do I get set up? ###
+Add the following to your configuration:
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+```Groovy
+//BuildConfig.groovy
 
-### Contribution guidelines ###
+repositories {
+    ...
+    mavenRepo "https://dl.bintray.com/willcrisis/plugins/"
+}
 
-* Writing tests
-* Code review
-* Other guidelines
+plugins {
+    compile ":willcrisis-mail:1.0.0"
+}
+```
 
-### Who do I talk to? ###
+### What this plugin do ###
 
-* Repo owner or admin
-* Other community or team contact
+* Installs [Grails Mail Plugin](https://github.com/gpc/grails-mail) to the app
+* Writes default mail configuration to `Config.groovy`
+
+### What I have to do after installing this plugin? ###
+
+* Check your `Config.groovy` file
+* Replace default values from the following keys:
+	* grails.mail.host
+	* grails.mail.port
+	* grails.mail.username
+	* grails.mail.password
+	* grails.mail.props
+	* grails.from.register
+	* grails.from.general
+* Use `sendMail` method inside controllers, or inject `mailService` inside other places.
+
+For full-reference on how send emails, check [here](http://gpc.github.io/grails-mail/).
